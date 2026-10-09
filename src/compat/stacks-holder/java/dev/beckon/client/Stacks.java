@@ -29,7 +29,12 @@ public final class Stacks {
     }
 
     public static int nameColor(ItemStack stack) {
-        TextColor color = stack.getStyledHoverName().getStyle().getColor();
+        // The styled hover name wraps a custom name in the rarity's colour, so ask the custom name first.
+        Component custom = stack.getCustomName();
+        TextColor color = custom == null ? null : custom.getStyle().getColor();
+        if (color == null) {
+            color = stack.getStyledHoverName().getStyle().getColor();
+        }
         if (color == null) {
             color = TextColor.fromLegacyFormat(stack.getRarity().color());
         }

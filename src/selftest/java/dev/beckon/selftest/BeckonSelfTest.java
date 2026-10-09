@@ -6,11 +6,15 @@ import dev.beckon.client.BeckonClient;
 import dev.beckon.client.gui.BeckonSettingsScreen;
 import dev.beckon.config.BeckonConfig;
 import dev.beckon.core.Blink;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.server.IntegratedServer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.client.tutorial.TutorialSteps;
 
 import java.io.File;
@@ -193,6 +197,25 @@ public final class BeckonSelfTest {
             int b = sword.color & 0xFF;
             log("diamond sword beam color " + Integer.toHexString(sword.color));
             check(b > r, "the diamond sword beam is not diamond-blue: " + Integer.toHexString(sword.color));
+        });
+        // A custom name's colour wins over the item's own colour (1.21.2+ wraps the name in the rarity's colour).
+        then(1, () -> drop(mc, "minecraft:stick", 2, floor, z - 3));
+        then(20, () -> {
+            IntegratedServer server = mc.getSingleplayerServer();
+            server.execute(() -> {
+                for (Entity entity : server.overworld().getAllEntities()) {
+                    if (entity instanceof ItemEntity item && item.getItem().getItem() == Items.STICK) {
+                        ItemStack named = item.getItem().copy();
+                        Summon.name(named, Component.literal("Magic Wand").withStyle(ChatFormatting.LIGHT_PURPLE));
+                        item.setItem(named);
+                    }
+                }
+            });
+        });
+        within(100, () -> beam(mc, "minecraft:stick") != null, () -> {
+            BeamInfo stick = beam(mc, "minecraft:stick");
+            check(stick != null, "the stick with a custom name has no beam");
+            check(stick.color == 0xFF55FF, "the custom-named stick's beam is not its name colour: " + Integer.toHexString(stick.color));
         });
         then(20, () -> screenshot(mc, "day"));
         then(1, () -> run(mc, "time set 18000"));

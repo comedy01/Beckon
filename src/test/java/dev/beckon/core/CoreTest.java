@@ -55,6 +55,31 @@ class CoreTest {
         assertTrue(flips(590, warn) < flips(30, warn));
     }
 
+    @Test
+    void blinkCyclesShrinkSteadilyFromOneToFivePerSecond() {
+        int warn = 600;
+        List<Integer> cycles = new java.util.ArrayList<>();
+        boolean last = true;
+        int start = -1;
+        // Sixty frames a second, three per tick, from the start of the warning to the end.
+        for (int f = 0; f < warn * 3; f++) {
+            boolean now = Blink.visible(warn - f / 3, (f % 3) / 3f, warn);
+            if (now && !last) {
+                if (start >= 0) {
+                    cycles.add(f - start);
+                }
+                start = f;
+            }
+            last = now;
+        }
+        assertTrue(cycles.get(0) >= 55 && cycles.get(0) <= 62, "first cycle " + cycles.get(0) + " frames");
+        int end = cycles.get(cycles.size() - 1);
+        assertTrue(end >= 11 && end <= 14, "last cycle " + end + " frames");
+        for (int i = 1; i < cycles.size(); i++) {
+            assertTrue(cycles.get(i) <= cycles.get(i - 1) + 1, "cycles " + cycles);
+        }
+    }
+
     private static int flips(int start, int warn) {
         int flips = 0;
         boolean last = Blink.visible(start, 0, warn);
