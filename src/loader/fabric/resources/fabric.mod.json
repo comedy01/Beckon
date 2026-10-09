@@ -1,0 +1,42 @@
+{
+	"schemaVersion": 1,
+	"id": "beckon",
+	"version": "${version}",
+	"name": "Beckon",
+	"description": "Loot beams for dropped items. Valuable drops shine with a soft beam in their own color, show their name and count when you get close, blink before they despawn, and your death drops get a golden beam so you find them again. Client-side only.",
+	"icon": {
+		"16": "assets/beckon/icon16.png",
+		"32": "assets/beckon/icon32.png",
+		"128": "assets/beckon/icon128.png"
+	},
+	"authors": [
+		"comedy01"
+	],
+	"license": "MIT",
+	"contact": {
+		"homepage": "https://github.com/comedy01/Beckon",
+		"sources": "https://github.com/comedy01/Beckon",
+		"issues": "https://github.com/comedy01/Beckon/issues"
+	},
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"dev.beckon.fabric.BeckonFabric"
+		],
+		"modmenu": [
+			"dev.beckon.fabric.BeckonModMenu"
+		]
+	},
+	"mixins": [
+		"beckon.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.0",
+		"fabric-api": "*",
+		"minecraft": "${range}",
+		"java": ">=${java_version}"
+	},
+	"suggests": {
+		"modmenu": "*"
+	}
+}

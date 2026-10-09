@@ -1,0 +1,27 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+issueTrackerURL="https://github.com/comedy01/Beckon/issues"
+
+[[mods]]
+modId="beckon"
+version="${version}"
+displayName="Beckon"
+displayURL="https://github.com/comedy01/Beckon"
+logoFile="assets/beckon/icon128.png"
+authors="comedy01"
+description='''Loot beams for dropped items. Valuable drops shine with a soft beam in their own color, show their name and count when you get close, blink before they despawn, and your death drops get a golden beam so you find them again. Client-side only.'''
+
+[[dependencies.beckon]]
+modId="forge"
+mandatory=true
+versionRange="${forge_range}"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.beckon]]
+modId="minecraft"
+mandatory=true
+versionRange="${mc_range}"
+ordering="NONE"
+side="CLIENT"

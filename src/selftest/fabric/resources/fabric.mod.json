@@ -1,0 +1,20 @@
+{
+	"schemaVersion": 1,
+	"id": "beckon-selftest",
+	"version": "1.0.0",
+	"name": "Beckon self test",
+	"description": "Development-only in-world checks for Beckon. Not shipped.",
+	"license": "MIT",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"dev.beckon.selftest.fabric.BeckonSelfTestFabric"
+		]
+	},
+	"depends": {
+		"beckon": "*"
+	},
+	"mixins": [
+		"beckon_selftest.mixins.json"
+	]
+}
