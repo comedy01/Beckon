@@ -37,3 +37,4 @@ logs/
 docs/
 
 .claude/
+*.stackdump
