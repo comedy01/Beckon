@@ -30,7 +30,6 @@ public final class Stacks {
     }
 
     public static int nameColor(ItemStack stack) {
-        // The styled hover name wraps a custom name in the rarity's colour, so ask the custom name first.
         Component custom = stack.get(DataComponents.CUSTOM_NAME);
         TextColor color = custom == null ? null : custom.getStyle().getColor();
         if (color == null) {

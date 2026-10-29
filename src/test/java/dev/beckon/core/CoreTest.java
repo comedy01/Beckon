@@ -61,7 +61,6 @@ class CoreTest {
         List<Integer> cycles = new java.util.ArrayList<>();
         boolean last = true;
         int start = -1;
-        // Sixty frames a second, three per tick, from the start of the warning to the end.
         for (int f = 0; f < warn * 3; f++) {
             boolean now = Blink.visible(warn - f / 3, (f % 3) / 3f, warn);
             if (now && !last) {

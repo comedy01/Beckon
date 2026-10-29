@@ -198,7 +198,6 @@ public final class BeckonSelfTest {
             log("diamond sword beam color " + Integer.toHexString(sword.color));
             check(b > r, "the diamond sword beam is not diamond-blue: " + Integer.toHexString(sword.color));
         });
-        // A custom name's colour wins over the item's own colour (1.21.2+ wraps the name in the rarity's colour).
         then(1, () -> drop(mc, "minecraft:stick", 2, floor, z - 3));
         then(20, () -> {
             IntegratedServer server = mc.getSingleplayerServer();

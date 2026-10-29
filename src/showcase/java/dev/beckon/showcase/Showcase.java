@@ -460,7 +460,6 @@ public final class Showcase {
         }
     }
 
-    /** A flat meadow ringed by trees. The middle, where the loot lies, keeps only a few flowers so nothing hides it. */
     private void buildMeadow(Minecraft mc) {
         BlockPos c = site.get();
         int x = c.getX();
@@ -503,7 +502,6 @@ public final class Showcase {
         run(mc, "kill @e[type=!minecraft:player]");
     }
 
-    /** Lays an item on the ground that never despawns and can't be picked up. */
     private void drop(Minecraft mc, String item, int count, Vec3 pos, String components) {
         cmd(mc, "summon minecraft:item %.3f %.3f %.3f {Item:{id:\"minecraft:%s\",count:%d%s},Motion:[0.0,0.0,0.0],"
                         + "PickupDelay:32767,Age:-32768}", pos.x, pos.y, pos.z, item, count,
@@ -547,7 +545,6 @@ public final class Showcase {
         });
     }
 
-    /** Client-side item age, which drives Beckon's despawn blink; ages are set once per item. */
     private void age(Minecraft mc, String id, int age) {
         for (Entity entity : mc.level.entitiesForRendering()) {
             if (entity instanceof ItemEntity item && !aged.contains(item.getId())
@@ -558,7 +555,6 @@ public final class Showcase {
         }
     }
 
-    /** Removes items whose client age ran out, as the server would. */
     private static void despawn(Minecraft mc) {
         List<ItemEntity> gone = new ArrayList<>();
         for (Entity entity : mc.level.entitiesForRendering()) {
@@ -753,7 +749,6 @@ public final class Showcase {
                 place(mc, feet);
                 lookAt(mc, look);
                 if (f == 0) {
-                    // Slow, middle and fast stages of the warning side by side; the totem runs out on camera.
                     age(mc, "emerald", 6000 - 400);
                     age(mc, "diamond", 6000 - 250);
                     age(mc, "totem_of_undying", 6000 - 130);
@@ -826,7 +821,6 @@ public final class Showcase {
         }
     }
 
-    /** Looks at each target in turn: holds for {@code hold} frames, then glides to the next over {@code move}. */
     private static Vec3 sweep(int f, Vec3[] targets, int move, int hold) {
         int step = move + hold;
         int i = Math.min(f / step, targets.length - 1);
